@@ -55,11 +55,18 @@ function addLiItem() {
 
 // Scroll to anchor ID using scrollTO event
 
-/* function scrollTo() {
-  for (let section of sections) {
-  }
+function scrollToSection() {
+  navbar.addEventListener('click', (e) => {
+    e.preventDefault();
+    let clicked = e.target.hash;
+    console.log(clicked);
+    window.scrollTo({
+      top: document.querySelector(e.target.hash).offsetTop,
+      behavior: 'smooth',
+    });
+  });
 }
- */
+
 /**
  * End Main Functions
  * Begin Events
@@ -70,6 +77,6 @@ function addLiItem() {
 addLiItem();
 
 // Scroll to section on link click
-// scrollToClick();
+scrollToSection();
 
 // Set sections as active
