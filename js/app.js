@@ -17,12 +17,9 @@
  * Define Global Variables
  *
  */
-let documentFragment = new DocumentFragment();
-const navbar = document.querySelector('.page__header .navbar__menu');
+const navbar = document.querySelector('.page__header #navbar__list');
 const ul = document.querySelector('.page__header #navbar__list');
-//! modify the node tree to array for no problems later
 const sections = Array.from(document.querySelectorAll('main section'));
-console.log('## TCL ## >>: sections', sections);
 
 /**
  * End Global Variables
@@ -37,25 +34,32 @@ console.log('## TCL ## >>: sections', sections);
  */
 
 // build the nav
-
 function addLiItem() {
-  for (let i = 0; i < sections.length; i++) {
-    let li = document.createElement('li');
-    li.textContent = sections[i].dataset.nav;
-    console.log(li.textContent);
-    li.classList.add('menu__link');
+  let navFragment = new DocumentFragment();
 
-    documentFragment.appendChild(li);
-  }
-  ul.appendChild(documentFragment);
-  //   console.log('## TCL ## >>: addLiItem -> documentFragment', documentFragment);
+  sections.forEach((section) => {
+    const navItem = document.createElement('li');
+    const navItemLink = document.createElement('a');
+
+    navItemLink.textContent = section.dataset.nav;
+    navItemLink.classList.add('menu__link');
+    navItemLink.setAttribute('href', `#${section.id}`);
+
+    navItem.append(navItemLink);
+    navFragment.append(navItem);
+  });
+  navbar.append(navFragment);
 }
 
-addLiItem();
 // Add class 'active' to section when near top of viewport
 
 // Scroll to anchor ID using scrollTO event
 
+/* function scrollTo() {
+  for (let section of sections) {
+  }
+}
+ */
 /**
  * End Main Functions
  * Begin Events
@@ -63,7 +67,9 @@ addLiItem();
  */
 
 // Build menu
+addLiItem();
 
 // Scroll to section on link click
+// scrollToClick();
 
 // Set sections as active
