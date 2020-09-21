@@ -53,13 +53,42 @@ function addLiItem() {
 
 // Add class 'active' to section when near top of viewport
 
+//1- track the section
+//2- check if the section near top
+//3- add active class to it or else
+
+function isInViewport(ele) {
+  const bounding = ele.getBoundingClientRect();
+  //DOMRect {x: 0, y: 0, width: 1329, height: 52, top: 0, …}
+
+  return (
+    bounding.top >= 0 &&
+    bounding.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    bounding.left >= 0 &&
+    bounding.right <=
+      (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+function addActiveClass() {
+  sections.forEach((section) => {
+    if (isInViewport(section)) {
+      console.log(`${section} is viewport`);
+      section.classList.add('your-active-class');
+    } else {
+      section.classList.remove('your-active-class');
+    }
+  });
+}
+
 // Scroll to anchor ID using scrollTO event
 
 function scrollToSection() {
   navbar.addEventListener('click', (e) => {
     e.preventDefault();
-    let clicked = e.target.hash;
-    console.log(clicked);
+    // let clicked = e.target.hash;
+    // console.log(clicked);
     window.scrollTo({
       top: document.querySelector(e.target.hash).offsetTop,
       behavior: 'smooth',
@@ -80,3 +109,6 @@ addLiItem();
 scrollToSection();
 
 // Set sections as active
+document.addEventListener('scroll', function () {
+  addActiveClass();
+});
