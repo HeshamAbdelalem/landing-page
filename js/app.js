@@ -64,17 +64,14 @@ function isInViewport(ele) {
   return (
     bounding.top >= 0 &&
     bounding.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    bounding.left >= 0 &&
-    bounding.right <=
-      (window.innerWidth || document.documentElement.clientWidth)
+      (window.innerHeight || document.documentElement.clientHeight)
   );
 }
 
 function addActiveClass() {
   sections.forEach((section) => {
     if (isInViewport(section)) {
-      console.log(`${section} is viewport`);
+      // console.log(`${section} is viewport`);
       section.classList.add('your-active-class');
     } else {
       section.classList.remove('your-active-class');
